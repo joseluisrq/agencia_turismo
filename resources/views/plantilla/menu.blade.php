@@ -33,6 +33,7 @@
                         <li   @click="menu=4"><a href="#"><i class="fas fa-snowboarding"></i> Clientes</a></li>
                         <li   @click="menu=3"><a href="#"><i class="fas fa-user-tie"></i> Prestadores</a></li>
                         <li   @click="menu=5"><a href="#"><i class="fas fa-people-carry"></i> Empleados</a></li>
+                        <li   @click="menu=6"><a href="#"><i class="fas fa-people-carry"></i> Roles</a></li>
                     </ul>
                 </li>      
                  <!--Lista de Clientes-->

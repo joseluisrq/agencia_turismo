@@ -26,6 +26,9 @@
 <template v-if=menu==5>
     <empleado :ruta="ruta" ></empleado>    
 </template>
+<template v-if=menu==6>
+    <rol :ruta="ruta" ></rol>    
+</template>
 
 
 

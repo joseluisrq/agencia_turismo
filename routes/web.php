@@ -43,6 +43,10 @@ Route::put('/prestador/activar','PrestadorControlador@activar');
 
 //Rol
 Route::get('/rol','RolControlador@index');
+Route::post('/rol/registrar','RolControlador@registrar');
+Route::put('/rol/actualizar','RolControlador@actualizar');
+Route::put('/rol/desactivar','RolControlador@desactivar');
+Route::put('/rol/activar','RolControlador@activar');
 
 
 //Clientes

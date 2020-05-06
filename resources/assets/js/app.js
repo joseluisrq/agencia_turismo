@@ -22,11 +22,12 @@ Vue.component('cliente', require('./components/Cliente.vue'));
 Vue.component('empleado', require('./components/Empleado.vue'));
 Vue.component('prestador', require('./components/Prestador.vue'));
 
+Vue.component('rol', require('./components/Roles.vue'));
 
 const app = new Vue({
     el: '#app',
     data:{
-        menu:5,
+        menu:6,
         ruta: 'http://127.0.0.1:8000/',
     }
 });
