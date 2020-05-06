@@ -105,7 +105,8 @@ class UsuarioControlador extends Controller
  
             $empleado = new Empleado();
             $empleado->condicion = '1';
-
+         
+            
             $empleado->id = $persona->id;
             $empleado->save();
 
@@ -113,10 +114,10 @@ class UsuarioControlador extends Controller
             $usuario->usuario=$request->usuario;
             $usuario->password=bcrypt($request->password) ;
             $usuario->condicion = '1';
-            $usuario->idrol = $request->idrol;
+            $usuario->idrol ='1';
          
             
-            $usuario->id = $empleado->id;
+            $usuario->id = $persona->id;
             $usuario->save();
  
             DB::commit();

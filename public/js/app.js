@@ -54270,32 +54270,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return;
             }
             var me = this;
+            if (this.vistaUsuario == true) {
+                axios.post(me.ruta + '/usuario/registrar', {
 
-            axios.post(me.ruta + '/empleado/registrar', {
+                    'nombres': this.nombres,
+                    'apellidos': this.apellidos,
+                    'tipo_documento': this.tipo_documento,
+                    'dni': this.dni,
+                    'direccion': this.direccion,
+                    'ciudad': this.ciudad,
+                    'pais': this.pais,
+                    'telefono': this.telefono,
+                    'email': this.email,
+                    'sexo': this.sexo,
+                    'usuario': this.usuario,
+                    'password': this.password_uno
+                    //'idrol':1,
 
-                'nombres': this.nombres,
-                'apellidos': this.apellidos,
-                'tipo_documento': this.tipo_documento,
-                'dni': this.dni,
-                'direccion': this.direccion,
-                'ciudad': this.ciudad,
-                'pais': this.pais,
-                'telefono': this.telefono,
-                'email': this.email,
-                'sexo': this.sexo
-            }).then(function (response) {
-                me.cerrarModal();
-                Swal.fire({
-                    position: 'top-end',
-                    type: 'success',
-                    title: 'Empleado Registrado',
-                    showConfirmButton: false,
-                    timer: 1500
+                }).then(function (response) {
+                    me.cerrarModal();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'success',
+                        title: 'Empleado Registrado',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    me.listarEmpleado(1, me.buscar, me.criterio);
+                }).catch(function (error) {
+                    console.log(error);
                 });
-                me.listarEmpleado(1, me.buscar, me.criterio);
-            }).catch(function (error) {
-                console.log(error);
-            });
+            } else {
+                axios.post(me.ruta + '/empleado/registrar', {
+
+                    'nombres': this.nombres,
+                    'apellidos': this.apellidos,
+                    'tipo_documento': this.tipo_documento,
+                    'dni': this.dni,
+                    'direccion': this.direccion,
+                    'ciudad': this.ciudad,
+                    'pais': this.pais,
+                    'telefono': this.telefono,
+                    'email': this.email,
+                    'sexo': this.sexo
+
+                }).then(function (response) {
+                    me.cerrarModal();
+                    Swal.fire({
+                        position: 'top-end',
+                        type: 'success',
+                        title: 'Empleado Registrado',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    me.listarEmpleado(1, me.buscar, me.criterio);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
         },
         btnDetalle: function btnDetalle() {
             var me = this;

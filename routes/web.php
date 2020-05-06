@@ -66,3 +66,4 @@ Route::put('/empleado/activar','EmpleadoControlador@activar');
 
 //usuarios
 Route::get('/usuario','UsuarioControlador@index');
+Route::post('/usuario/registrar','UsuarioControlador@registrar');
