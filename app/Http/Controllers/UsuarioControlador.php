@@ -105,6 +105,7 @@ class UsuarioControlador extends Controller
  
             $empleado = new Empleado();
             $empleado->condicion = '1';
+            $empleado->idcargo =$request->idcargo;
          
             
             $empleado->id = $persona->id;
@@ -114,7 +115,7 @@ class UsuarioControlador extends Controller
             $usuario->usuario=$request->usuario;
             $usuario->password=bcrypt($request->password) ;
             $usuario->condicion = '1';
-            $usuario->idrol ='1';
+            $usuario->idrol =$request->idrol;
          
             
             $usuario->id = $persona->id;

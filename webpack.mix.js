@@ -16,7 +16,7 @@ mix.styles([ // CSS DE PÑANTILLA
    'resources/assets/plantilla/css/flag-icon.css',
    'resources/assets/plantilla/css/icofont.css',   
    'resources/assets/plantilla/css/prism.css',
-   'resources/assets/plantilla/css/chartist.css',
+  // 'resources/assets/plantilla/css/chartist.css',
   
    'resources/assets/plantilla/css/admin.css',
    'resources/assets/plantilla/css/bootstrap.css'
@@ -43,8 +43,8 @@ mix.styles([ // CSS DE PÑANTILLA
    //'resources/assets/plantilla/js/chart/peity-chart/peity.jquery.js',
   // 'resources/assets/plantilla/js/chart/sparkline/sparkline.js',
    'resources/assets/plantilla/js/admin-customizer.js',
-   'resources/assets/plantilla/js/dashboard/default.js',
-   'resources/assets/plantilla/js/chat-menu.js',
+  // 'resources/assets/plantilla/js/dashboard/default.js',
+   //'resources/assets/plantilla/js/chat-menu.js',
    'resources/assets/plantilla/js/height-equal.js',
    'resources/assets/plantilla/js/lazysizes.min.js',
 

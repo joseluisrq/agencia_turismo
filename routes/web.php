@@ -43,10 +43,19 @@ Route::put('/prestador/activar','PrestadorControlador@activar');
 
 //Rol
 Route::get('/rol','RolControlador@index');
+Route::get('/rol/selectRol','RolControlador@selectRol');
 Route::post('/rol/registrar','RolControlador@registrar');
 Route::put('/rol/actualizar','RolControlador@actualizar');
 Route::put('/rol/desactivar','RolControlador@desactivar');
 Route::put('/rol/activar','RolControlador@activar');
+
+//Cargo
+Route::get('/cargo','CargoControlador@index');
+Route::get('/cargo/selectCargo','CargoControlador@selectCargo');
+Route::post('/cargo/registrar','CargoControlador@registrar');
+Route::put('/cargo/actualizar','CargoControlador@actualizar');
+Route::put('/cargo/desactivar','CargoControlador@desactivar');
+Route::put('/cargo/activar','CargoControlador@activar');
 
 
 //Clientes

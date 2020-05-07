@@ -50,4 +50,13 @@ class RolControlador extends Controller
          $rol->condicion='0';
          $rol->save();
     }
+    public function selectRol(Request $request){
+        if (!$request->ajax()) return redirect('/');
+             $filtro = $request->filtro;
+             $roles = Roles::where('condicion', '=', '1')       
+             ->select('id','nombre')
+             ->orderBy('id', 'asc')->get();
+ 
+             return ['roles' => $roles];
+     }
 }

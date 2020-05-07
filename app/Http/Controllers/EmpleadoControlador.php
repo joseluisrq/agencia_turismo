@@ -18,6 +18,7 @@ class EmpleadoControlador extends Controller
         if ($buscar==''){
             $empleados = Empleado::
             join('personas','empleados.id','=','personas.id')
+            ->join('cargos','empleados.idcargo','=','cargos.id')
             ->select(
                 'personas.id',         
                 'personas.nombres',
@@ -30,13 +31,16 @@ class EmpleadoControlador extends Controller
                 'personas.telefono',
                 'personas.email',
                 'personas.sexo',
-                'empleados.condicion')
+                'empleados.condicion',
+                'empleados.idcargo',
+                'cargos.nombre as cargo')
             ->orderBy('empleados.id', 'asc')->paginate(10);
         }
         else if($criterio=='nombres' || $criterio=='apellidos'|| $criterio=='dni'|| $criterio=='ciudad'|| $criterio=='pais'
         || $criterio=='telefono'|| $criterio=='email'){
             $empleados = Empleado::
             join('personas','empleados.id','=','personas.id')
+            ->join('cargos','empleados.idcargo','=','cargos.id')
             ->select(
                 'personas.id',
                 'personas.dni',
@@ -49,7 +53,9 @@ class EmpleadoControlador extends Controller
                 'personas.telefono',
                 'personas.email',
                 'personas.sexo',
-                'empleados.condicion')
+                'empleados.condicion',
+                'empleados.idcargo',
+                'cargos.nombre as cargo')
                 ->where('personas.'.$criterio, 'like', '%'. $buscar . '%')
                 ->orderBy('empleados.id', 'asc')->paginate(10);
 
@@ -89,6 +95,7 @@ class EmpleadoControlador extends Controller
  
             $empleado = new Empleado();
             $empleado->condicion = '1';
+            $empleado->idcargo = $request->idcargo;
          
             
             $empleado->id = $persona->id;

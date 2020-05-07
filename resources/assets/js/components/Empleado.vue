@@ -39,7 +39,34 @@
                                    <div class="modal-body card">
                                         <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                             <div class="row">
-                                                <div class="col-md-6 form-group">
+                                              
+                                                <div class="col-md-3 form-group">
+                                                    <label class=" form-control-label" for="text-input">Tipo Documento</label>
+                                                    <select class=" form-control" v-model="tipo_documento">  
+                                                         <option disabled value="">Seleccione un elemento</option>                                                  
+                                                         <option v-for="doc in arrayDocumento" :key="doc.index" :value="doc" v-text="doc"></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label class=" form-control-label" for="text-input">Número de Documento(*)</label>
+                                                    <input type="text" v-model="dni" class="form-control" placeholder="Ingrese n° de Documento">                                              
+                                                </div>
+                                                    <div class="col-md-3 form-group">
+                                                    <label class=" form-control-label" for="text-input">Sexo(*)</label>
+                                                    <select class="form-control col-md-12" v-model="sexo">   
+                                                        <option disabled value="">Seleccione un elemento</option>                                                           
+                                                        <option value="1">Masculino</option>
+                                                        <option value="0">Femenino</option>                                                                                        
+                                                    </select>        
+                                                 </div>
+                                                <div class="col-md-3 form-group">
+                                                    <label class=" form-control-label" for="text-input">Cargo (*)</label>
+                                                    <select class=" form-control" v-model="idcargoSelect">
+                                                        <option value="0" disabled>Selecione cargo</option>
+                                                         <option v-for="cargo in arrayCargos" :key="cargo.id" :value="cargo.id" v-text="cargo.nombre"></option>
+                                                    </select>
+                                                </div>
+                                                  <div class="col-md-6 form-group">
                                                     <label class=" form-control-label" for="text-input">Nombre (*)</label>
                                                     <input type="text" v-model="nombres" class="form-control" placeholder="Ingrese nombres">                                              
                                                 </div>
@@ -47,51 +74,38 @@
                                                     <label class=" form-control-label" for="text-input">Apellidos (*)</label>
                                                     <input type="text" v-model="apellidos" class="form-control" placeholder="Ingrese apellidos">                                              
                                                 </div>
-                                                <div class="col-md-4 form-group">
-                                                    <label class=" form-control-label" for="text-input">Tipo Documento </label>
-                                                    <select class="form-control col-md-12" v-model="tipo_documento">                                                    
-                                                        <option value="DNI">DNI</option>
-                                                        <option value="CARNET DE EXTRANJERIA">CARNET DE EXTRANJERIA	</option>
-                                                        <option value="PASAPORTE">PASAPORTE </option>                                                        
-                                                    </select>        
-                                                 </div>
-                                                <div class="col-md-4 form-group">
-                                                    <label class=" form-control-label" for="text-input">Número de Documento</label>
-                                                    <input type="text" v-model="dni" class="form-control" placeholder="Ingrese número de Documento">                                              
-                                                </div>
-                                                    <div class="col-md-4 form-group">
-                                                    <label class=" form-control-label" for="text-input">Sexo(*)</label>
-                                                    <select class="form-control col-md-12" v-model="sexo">                                                    
-                                                        <option value="1">Masculino</option>
-                                                        <option value="0">Femenino</option>                                                                                        
-                                                    </select>        
-                                                 </div>
-                                                 <div class="col-md-6 form-group">
+                                                 <div class="col-md-4 form-group">
                                                     <label class=" form-control-label" for="text-input">Teléfono</label>
-                                                    <input type="text" v-model="telefono" class="form-control" placeholder="Ingrese numero de teéfono o celular">                                              
+                                                    <input type="text" v-model="telefono" class="form-control" placeholder="Ingrese número de teléfono o celular">                                              
                                                 </div>
-                                                  <div class="col-md-6 form-group">
+                                                  <div class="col-md-4 form-group">
                                                     <label class=" form-control-label" for="text-input">Email</label>
                                                     <input type="email" v-model="email" class="form-control" placeholder="Ingrese E-mail">                                              
                                                 </div>
-                                                <div class="col-md-3 form-group">
+                                                <div class="col-md-4 form-group">
                                                     <label class=" form-control-label" for="text-input">Pais </label>
                                                     <input type="text" v-model="pais" class="form-control" placeholder="Ingrese Pais">                                              
                                                 </div>
-                                                 <div class="col-md-3 form-group">
+                                                 <div class="col-md-4 form-group">
                                                     <label class=" form-control-label" for="text-input">Ciudad </label>
                                                     <input type="text" v-model="ciudad" class="form-control" placeholder="Ingrese ciudad">                                              
                                                 </div>
-                                                <div class="col-md-6 form-group">
+                                                <div class="col-md-8 form-group">
                                                     <label class=" form-control-label" for="text-input">Dirección </label>
                                                     <input type="text" v-model="direccion" class="form-control" placeholder="Ingrese dirección">                                              
                                                 </div>
 
-                                                  <div class="col-md-6 form-group">
-                                                    <button type="button" class="btn btn-outline-danger btn-sm" v-if="vistaUsuario==false" @click="vistaUsuario=true">Crear Usuario</button>                                             
-                                                     <button type="button" class="btn btn-outline-danger btn-sm" v-else-if="vistaUsuario==true" @click="vistaUsuario=false">Cancelar Usuario</button>                                             
-                                               
-                                                </div>
+                                             
+
+                                                <div class="col-md-6 form-group">
+                                                    <div v-if="botonUsuario==true">
+                                                          <button type="button" class="btn btn-outline-danger btn-sm" v-if="vistaUsuario==false" @click="selectRol();">Crear Usuario</button>                                             
+                                                             <button type="button" class="btn btn-outline-danger btn-sm" v-else-if="vistaUsuario==true" @click="vistaUsuario=false">Cancelar Usuario</button>                                             
+   
+                                                    </div>
+                                                  </div>
+
+                                             
                                                 
                                                  
                                                   
@@ -120,6 +134,13 @@
                                                  <div class="col-md-4 form-group">
                                                     <label class=" form-control-label" for="text-input">Repita contraseña (*)</label>
                                                     <input type="text" v-model="password_dos" class="form-control" placeholder="*****">                                              
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label class=" form-control-label" for="text-input">Rol (*)</label>
+                                                    <select class=" form-control" v-model="idrolSelect">
+                                                        <option value="0" disabled>Selecione rol</option>
+                                                         <option v-for="rol in arrayRoles" :key="rol.id" :value="rol.id" v-text="rol.nombre"></option>
+                                                    </select>
                                                 </div>
                                                 
                                             </div>
@@ -166,6 +187,7 @@
                                                         <li class="list-group-item"><strong>Pais</strong>  : {{pais}}</li>
                                                         <li class="list-group-item"><strong>Ciudad</strong>  : {{ciudad}}</li>
                                                         <li class="list-group-item"><strong>Direccion</strong>  : {{direccion}}</li>
+                                                          <li class="list-group-item"><strong>Cargo</strong>  : {{cargo}}</li>
                                                     </ul>                                            
                                                 </div>       
                                             </div>   
@@ -200,11 +222,9 @@
                                         <tr>
                                         <th scope="col">N° Doc</th>
                                         <th scope="col">Nombre</th>                                       
-                                        <th scope="col">Apellidos</th>                                        
-                                        <th scope="col">Ciudad</th>
-                                        <th scope="col">Pais</th>
-                                         <th scope="col">Teléfono</th>
-                                            <th scope="col">Email</th>
+                                        <th scope="col">Apellidos</th>   
+                                        <th scope="col">Teléfono</th>
+                                        <th scope="col">Email</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col"></th>
                                         
@@ -215,9 +235,7 @@
                                             <td  v-text="element.dni"></td>
                                             <td>{{element.nombres}}</td>
                                             <td v-text="element.apellidos"></td>
-                                            <td  v-text="element.ciudad" ></td>
-                                            <td  v-text="element.pais"></td>
-                                            <td  v-text="element.telefono"></td>
+                                             <td  v-text="element.telefono"></td>
                                             <td  v-text="element.email"></td>
 
                                             <!--activa o desactivada-->
@@ -300,9 +318,20 @@
                 telefono:'',
                 email:'',
                 sexo:'',
+                idrolSelect:0,
+                idcargoSelect:0,
+                cargo:"",
+                botonUsuario:true,
                 
 
                 arrayEmpleado:[],
+                  arrayRoles:[],
+                    arrayCargos:[],
+
+                    arrayDocumento:[
+                       'DNI',
+                       'PASAPORTE'
+                    ],
 
                 //formulario 
                 vistaFormulario:false,
@@ -394,7 +423,30 @@
                     console.log(error);
                 });
             },
-            
+            selectRol(){
+                let me=this;
+                me.vistaUsuario=true;
+                var url= me.ruta+'/rol/selectRol';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.arrayRoles = respuesta.roles;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+              selectCargo(){
+                let me=this;
+               // me.vistaUsuario=true;
+                var url= me.ruta+'/cargo/selectCargo';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.arrayCargos = respuesta.cargos;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
            
             lbtnAgregarEmpleado(){
                   if (this.validarForm()){
@@ -402,6 +454,7 @@
                 }                
                 let me = this;
                   if(this.vistaUsuario==true){
+                        
                         axios.post(me.ruta+'/usuario/registrar',{
                             
                             'nombres': this.nombres,
@@ -416,8 +469,8 @@
                             'sexo': this.sexo ,  
                             'usuario':this.usuario,
                             'password':this.password_uno,
-                            //'idrol':1,
-                        
+                            'idrol':this.idrolSelect,
+                               'idcargo':this.idcargoSelect
                         }).then(function (response) {
                             me.cerrarModal();
                             Swal.fire({
@@ -446,6 +499,7 @@
                     'telefono': this.telefono,
                     'email': this.email,
                     'sexo': this.sexo ,  
+                      'idcargo':this.idcargoSelect
                   
                 }).then(function (response) {
                     me.cerrarModal();
@@ -504,20 +558,28 @@
                 
             },
             validarForm(){
+
                 this.errorForm=0;
                 this.errorMostrarMsjForm =[];
-
+                let expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                 if(this.email){
+                        if (!expr.test(this.email)) this.errorMostrarMsjForm.push("Ingrese un correo valido");
+                }
                 if (!this.nombres) this.errorMostrarMsjForm.push("El nombre del empleado no puede estar vacío."); 
                 if (!this.apellidos) this.errorMostrarMsjForm.push("El apellido del empleado no puede estar vacío.");    
-                //if (!this.dni) this.errorMostrarMsjForm.push("El número de documento esta vació");    
-                //if (!this.tipo_documento) this.errorMostrarMsjForm.push("Selecione el tipo de documento.");    
+                if (!this.dni) this.errorMostrarMsjForm.push("El número de documento esta vació");    
+                if (!this.tipo_documento) this.errorMostrarMsjForm.push("Selecione el tipo de documento.");    
                // if (!this.telefono) this.errorMostrarMsjForm.push("El teléfono del cliente no puede estar vacío.");    
                //if (!this.email) this.errorMostrarMsjForm.push("El email del cliente no puede estar vacío.");    
                // if (!this.pais) this.errorMostrarMsjForm.push("El pais del cliente no puede estar vacío."); 
                // if (!this.ciudad) this.errorMostrarMsjForm.push("La ciudad del cliente no puede estar vacío.");    
                // if (!this.direccion) this.errorMostrarMsjForm.push("La direccion del cliente no puede estar vacío.");     
 
-             
+                if(this.vistaUsuario==true){
+                      if (!this.usuario) this.errorMostrarMsjForm.push("El usuario del empleado no puede estar vacío."); 
+                      if (!this.password_uno) this.errorMostrarMsjForm.push("La contraseña  del empleado no puede estar vacío.");                       
+                      if(this.password_uno!=this.password_dos)this.errorMostrarMsjForm.push("Las contraseñas no son iguales.");
+                }
                           
                 if (this.errorMostrarMsjForm.length) this.errorForm = 1;
 
@@ -585,10 +647,16 @@
                 this.pais='';
                 this.telefono='';
                 this.email='';
-                this.sexo='';         
+                this.sexo='';        
+                this.usuario="";
+                this.password_uno="";
+                this.password_dos=""; 
+                this.idrolSelect=0;
+                this.idcargoSelect=0;
 
                 this.vistaFormulario=false;
                 this.lista=true;
+                this.vistaUsuario=false;
             },
              abrirModal(modelo, accion, data = []){
                
@@ -598,6 +666,7 @@
                         switch(accion){
                             case 'registrar':
                             {   
+                                this.selectCargo();       
                                 this.vistaFormulario=true;
                                 this.modal = 1;
                                 this.tituloModal = 'Registrar Empleado';
@@ -612,7 +681,9 @@
                                 this.sexo='';                          
                                 this.tipoAccion = 1;    
                                 this.lista=true;  
-                                 this.vistaDetalle=false;             
+                                this.vistaDetalle=false;  
+                                this.botonUsuario=true; 
+                                 
                     
                       
                                 break;
@@ -634,6 +705,9 @@
                                 this.telefono=data['telefono'];
                                 this.email=data['email'];
                                 this.sexo=data['sexo'];  
+                                this.idcargo=data['idcargo'];  
+                                this.idcargoSelect=data['idcargo'];  
+                                this.cargo=data['cargo'];  
                                 this.id_empleado=data['id'];               
                                 this.btnDetalle();
                               
@@ -644,11 +718,13 @@
                              case 'actualizar':
                             {
                                 //console.log(data);
+                                 this.selectCargo();       
                                 this.vistaFormulario=true;
                                 this.modal=1;
                                 this.tituloModal='Actualizar Empleado';
                                 this.tipoAccion=2;
                                  this.vistaDetalle=false;
+                                 this.botonUsuario=false;
                                     
                                                              
                                 

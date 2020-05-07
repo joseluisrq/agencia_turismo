@@ -23,4 +23,8 @@ class Empleado extends Model
     public function user(){
         return  $this->hasOne('App\User');
     }
+    public function cargo(){
+        return  $this->belongsTo('App\Cargo');
+    }
+
 }

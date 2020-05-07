@@ -27,7 +27,7 @@ Vue.component('rol', require('./components/Roles.vue'));
 const app = new Vue({
     el: '#app',
     data:{
-        menu:6,
+        menu:5,
         ruta: 'http://127.0.0.1:8000/',
     }
 });
