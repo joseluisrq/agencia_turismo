@@ -15,19 +15,27 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+//Servicios
+Vue.component('categoria', require('./components/Servicios/Categoria.vue'));
+Vue.component('servicio', require('./components/Servicios/Servicio.vue'));
+Vue.component('prestador', require('./components/Servicios/Prestador.vue'));
 
-Vue.component('categoria', require('./components/Categoria.vue'));
-Vue.component('servicio', require('./components/Servicio.vue'));
-Vue.component('cliente', require('./components/Cliente.vue'));
-Vue.component('empleado', require('./components/Empleado.vue'));
-Vue.component('prestador', require('./components/Prestador.vue'));
+//Clientes
+Vue.component('cliente', require('./components/Clientes/Cliente.vue'));
 
-Vue.component('rol', require('./components/Roles.vue'));
+//Empleados
+Vue.component('empleado', require('./components/Empleados/Empleado.vue'));
+Vue.component('cargo', require('./components/Empleados/Cargo.vue'));
+
+
+//Usuarios
+Vue.component('rol', require('./components/Usuarios/Roles.vue'));
+Vue.component('usuario', require('./components/Usuarios/Usuario.vue'));
 
 const app = new Vue({
     el: '#app',
     data:{
-        menu:5,
+        menu:8,
         ruta: 'http://127.0.0.1:8000/',
     }
 });

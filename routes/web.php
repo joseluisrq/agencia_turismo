@@ -49,6 +49,15 @@ Route::put('/rol/actualizar','RolControlador@actualizar');
 Route::put('/rol/desactivar','RolControlador@desactivar');
 Route::put('/rol/activar','RolControlador@activar');
 
+
+//Usuario
+Route::get('/usuario','UsuarioControlador@index');
+Route::get('/list_user','UsuarioControlador@list_user');
+Route::post('/usuario/registrar','UsuarioControlador@registrar');
+Route::put('/usuario/actualizar','UsuarioControlador@actualizar');
+Route::put('/usuario/desactivar','UsuarioControlador@desactivar');
+Route::put('/usuario/activar','UsuarioControlador@activar');
+
 //Cargo
 Route::get('/cargo','CargoControlador@index');
 Route::get('/cargo/selectCargo','CargoControlador@selectCargo');

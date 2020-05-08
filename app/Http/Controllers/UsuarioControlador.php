@@ -160,4 +160,38 @@ class UsuarioControlador extends Controller
         
     }
 
+    public function list_user(Request $request){
+        $usuarios = User::
+             join('empleados','usuarios.id','=','empleados.id')
+            ->join('personas','empleados.id','=','personas.id')
+            ->join('roles','usuarios.idrol','=','roles.id')
+            ->select(
+                'personas.id as idpersona',         
+                'personas.nombres as usernombre',
+                'personas.apellidos as userapellido',
+                'usuarios.condicion as condicionusuario',
+                'usuarios.usuario',
+                'usuarios.id as iduser',
+                'usuarios.password',
+                'usuarios.idrol',
+                'roles.nombre as rol',
+                'roles.id as idrol')
+            ->orderBy('usuarios.id', 'asc')->get();
+            return [            
+                'usuarios' => $usuarios
+            ];
+    }
+    public function activar(Request $request)
+    {
+        $rol= User::findOrFail($request->id);
+        $rol->condicion='1';
+        $rol->save();
+    }
+    public function desactivar(Request $request)
+    {
+         $rol= User::findOrFail($request->id);
+         $rol->condicion='0';
+         $rol->save();
+    }
+
 }

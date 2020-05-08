@@ -169,9 +169,9 @@
                                         <th scope="col">Apellidos</th>                                        
                                         <th scope="col">Ciudad</th>
                                         <th scope="col">Pais</th>
-                                         <th scope="col">Teléfono</th>
+                                         <th scope="col"> <i class="fas fa-phone-volume"></i> Celular</th>
                                             <th scope="col">Email</th>
-                                        <th scope="col">Estado</th>
+                                        <th>Condición  </th>
                                         <th scope="col"></th>
                                         
                                         </tr>
@@ -188,10 +188,14 @@
 
                                             <!--activa o desactivada-->
                                              <td v-if="element.condicion==1">
-                                                <span class="text-info" >Activo</span>  
+                                              
+                                                    <span style="color:#A1E371;"> <i class="fas fa-circle"></i></span>
+                                                  <span style="font-size:12px">Activo </span> 
+                                               
                                              </td>
                                              <td v-else-if="element.condicion==0">
-                                                <span class="text-danger" >Desactivado</span> 
+                                                   <span style="color:#FD8889;"> <i class="fas fa-circle"></i></span>
+                                                   <span style="font-size:12px">Desactivo </span> 
                                              </td>
 
                                              

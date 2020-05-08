@@ -23,12 +23,22 @@
 <template v-if=menu==4>
     <cliente :ruta="ruta" ></cliente>
 </template>
+<!--Empleados-->
 <template v-if=menu==5>
     <empleado :ruta="ruta" ></empleado>    
 </template>
+<template v-if=menu==7>
+    <cargo :ruta="ruta" ></cargo>    
+</template>
+
+<!--Uusario-->
 <template v-if=menu==6>
     <rol :ruta="ruta" ></rol>    
 </template>
+<template v-if=menu==8>
+    <usuario :ruta="ruta" ></usuario>    
+</template>
+
 
 
 
