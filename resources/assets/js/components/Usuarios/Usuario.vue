@@ -21,11 +21,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h5>Lista Usuarios    
-                                <button class="btn  btn-primary  pull-right"  @click="abrirModal('cargos','registrar')">Registrar Cargo</button>
-                            </h5>                                                        
-                        </div>
+                      
                         
                         <div class="card-body">                           
                            
