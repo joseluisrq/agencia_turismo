@@ -33,18 +33,22 @@
                             </ul>
                             <div class="tab-content" id="top-tabContent">
                                 <div class="tab-pane fade show active" id="top-profile" role="tabpanel" aria-labelledby="top-profile-tab">
-                                    <form class="form-horizontal auth-form">
-                                        <div class="form-group">
-                                            <input required="" name="" type="email" class="form-control" placeholder="Usuario" id="exampleInputEmail1">
+                                    <form class="form-horizontal auth-form" method="POST" action="{{ route('login')}}">
+                                        {{ csrf_field() }}
+                                     <div class="form-group {{$errors->has('usuario' ? 'is-invalid' : '')}}">                                         
+                                            <input type="text" value="{{old('usuario')}}" name="usuario" id="usuario" class="form-control" placeholder="Usuario">
+                                            {!!$errors->first('usuario','<span class="">:message</span>')!!}
                                         </div>
-                                        <div class="form-group">
-                                            <input required="" name="" type="password" class="form-control" placeholder="Contraseña">
-                                        </div>
-                                     
-                                        <div class="form-button">
-                                            <button class="btn btn-primary" type="submit">Ingresar</button>
+                                        <div class="form-group {{$errors->has('password' ? 'is-invalid' : '')}}">                                        
+                                            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                                            {!!$errors->first('password','<span class="">:message</span>')!!}
                                         </div>
                                       
+                                        <div class="form-button">
+                                            <button type="submit" class="btn btn-primary px-4">Acceder</button>
+                                        </div>
+                                        
+                                        </div>
                                     </form>
                                 </div>
                               
