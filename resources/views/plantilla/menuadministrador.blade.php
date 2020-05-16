@@ -23,7 +23,14 @@
                 <li><a class="sidebar-header" href=""><i class="fa fa-box-open"></i><span>Paquete</span><i class="fa fa-angle-right pull-right"></i></a>
                     <ul class="sidebar-submenu">
                         <li   @click="menu=11"><a href="#"><i class="fa fa-circle"></i>Nuevo Paquete</a></li>
-                        <li   @click="menu=12"><a href="#"><i class="fa fa-circle"></i>Lista de Paquete</a></li>
+                        <li   @click="menu=13"><a href="#"><i class="fa fa-circle"></i>Formato de Paquetes</a></li>
+                    </ul>
+                </li>  
+                   <!--Paquetes turisticos-->
+                   <li><a class="sidebar-header" href=""><i class="fa fa-box-open"></i><span>Ventas</span><i class="fa fa-angle-right pull-right"></i></a>
+                    <ul class="sidebar-submenu">
+                        <li   @click="menu=12"><a href="#"><i class="fa fa-circle"></i>Paquetes vendidos</a></li>
+                        <li   @click="menu=14"><a href="#"><i class="fa fa-circle"></i>Caja</a></li>
                     </ul>
                 </li>  
                  <!--Lista de Servcios-->

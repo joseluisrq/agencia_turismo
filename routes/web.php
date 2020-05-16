@@ -97,6 +97,15 @@ Route::group(['middleware'=>['auth']],function(){
             Route::get('/usuario','UsuarioControlador@index');
             Route::post('/usuario/registrar','UsuarioControlador@registrar');
 
+            //paquetes
+            
+            Route::get('/paquete', 'PaqueteControlador@index');
+            Route::post('/paquete/registrar', 'PaqueteControlador@store');
+            Route::put('/paquete/desactivar', 'PaqueteControlador@desactivar');
+            Route::get('/paquete/obtenerCabecera', 'PaqueteControlador@obtenerCabecera');
+            Route::get('/paquete/obtenerDetalles', 'PaqueteControlador@obtenerDetalles');
+            Route::get('/paquete/obtenerClientes', 'PaqueteControlador@obtenerClientes');
+
     });
     Route::group(['middleware'=>['Operaciones']],function(){
 

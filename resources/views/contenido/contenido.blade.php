@@ -46,6 +46,10 @@
             <usuario :ruta="ruta" ></usuario>    
         </template>
 
+        <template v-if=menu==12>
+            <paquete :ruta="ruta" ></paquete>    
+        </template>
+
     @elseif (Auth::user()->idrol == 2)
     
     @elseif (Auth::user()->idrol == 3)

@@ -32,10 +32,13 @@ Vue.component('cargo', require('./components/Empleados/Cargo.vue'));
 Vue.component('rol', require('./components/Usuarios/Roles.vue'));
 Vue.component('usuario', require('./components/Usuarios/Usuario.vue'));
 
+//Paquete
+Vue.component('paquete', require('./components/Paquetes/Paquete.vue'));
+
 const app = new Vue({
     el: '#app',
     data:{
-        menu:8,
+        menu:12,
         ruta: 'http://127.0.0.1:8000/',
     }
 });
