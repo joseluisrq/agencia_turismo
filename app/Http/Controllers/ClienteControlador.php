@@ -69,6 +69,21 @@ class ClienteControlador extends Controller
             'clientes' => $clientes
         ];
     }
+    
+    public function selectCliente(Request $request){
+       // if (!$request->ajax()) return redirect('/');
+
+        $filtro = $request->filtro;
+        $clientes = Cliente::
+        join('personas','clientes.id','=','personas.id')
+        ->where('personas.nombres', 'like', '%'. $filtro . '%')
+        ->orWhere('personas.dni', 'like', '%'. $filtro . '%')
+        ->select('personas.id','personas.nombres','personas.dni')
+        ->orderBy('personas.nombres', 'asc')->get();
+
+        return ['clientes' => $clientes];
+    }
+
     public function registrar(Request $request)
     {
         //almacenar

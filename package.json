@@ -22,6 +22,7 @@
     "dependencies": {
         "datatables": "^1.10.18",
         "sweetalert2": "^9.10.12",
+        "vue-select": "^3.10.3",
         "vue-sweetalert2": "^3.0.3"
     }
 }

@@ -84,7 +84,7 @@ Route::group(['middleware'=>['auth']],function(){
             Route::put('/cliente/actualizar','ClienteControlador@actualizar');
             Route::put('/cliente/desactivar','ClienteControlador@desactivar');
             Route::put('/cliente/activar','ClienteControlador@activar');
-            
+            Route::get('/cliente/selectCliente', 'ClienteControlador@selectCliente');
             
             //empleado
             Route::get('/empleado','EmpleadoControlador@index');
@@ -103,9 +103,14 @@ Route::group(['middleware'=>['auth']],function(){
             Route::post('/paquete/registrar', 'PaqueteControlador@store');
             Route::put('/paquete/desactivar', 'PaqueteControlador@desactivar');
             Route::get('/paquete/obtenerCabecera', 'PaqueteControlador@obtenerCabecera');
+            Route::get('/paquete/obtenerCabeceraCli', 'PaqueteControlador@obtenerCabeceraCli');
+          
             Route::get('/paquete/obtenerDetalles', 'PaqueteControlador@obtenerDetalles');
             Route::get('/paquete/obtenerClientes', 'PaqueteControlador@obtenerClientes');
 
+            Route::get('/paquete/pdf/{id}','PaqueteControlador@pdf')->name('venta_pdf');
+            Route::get('/paquete/pdfTicket/{id}','PaqueteControlador@pdfTicket')->name('ventaticket_pdf');
+            Route::get('/paquete/listarPdf','PaqueteControlador@listarPdf')->name('ventas_pdf');
     });
     Route::group(['middleware'=>['Operaciones']],function(){
 
