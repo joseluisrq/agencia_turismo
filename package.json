@@ -12,17 +12,18 @@
     "devDependencies": {
         "axios": "^0.18",
         "bootstrap": "^4.0.0",
-        "popper.js": "^1.12",
         "cross-env": "^5.1",
-        "jquery": "^3.2",
+        "jquery": "^3.5.1",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
+        "popper.js": "^1.12",
         "vue": "^2.5.7"
     },
     "dependencies": {
         "datatables": "^1.10.18",
         "sweetalert2": "^9.10.12",
-        "vue-select": "^3.10.3",
+        "vue-select": "^2.4.0",
+        "vue-select2": "^0.2.6",
         "vue-sweetalert2": "^3.0.3"
     }
 }

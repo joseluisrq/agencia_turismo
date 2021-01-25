@@ -26,15 +26,16 @@ class PaqueteControlador extends Controller
             ->join('usuarios','empleados.id','=','usuarios.id')
             ->select(
                 'paquetes.id',
-                'paquetes.tipo_comprobante',
-                'paquetes.serie_comprobante',
-                'paquetes.num_comprobante',
+                'paquetes.codigo_paquete',
+                'paquetes.nombre_paquete',   
+                'paquetes.detalle',                     
                 'paquetes.fecha_hora',
                 'paquetes.impuesto',
                 'paquetes.total',
                 'paquetes.estado',
                 'personas.nombres','usuarios.usuario')
-            ->orderBy('paquetes.id', 'desc')->paginate(3);
+                ->where('paquetes.estado', 'like', '%1%')
+            ->orderBy('paquetes.id', 'desc')->paginate(20);
         }
         else{
             $paquetes = Paquete::join('empleados','paquetes.idempleado','=','empleados.id')
@@ -42,16 +43,17 @@ class PaqueteControlador extends Controller
             ->join('usuarios','empleados.id','=','usuarios.id')
             ->select(
                 'paquetes.id',
-                'paquetes.tipo_comprobante',
-                'paquetes.serie_comprobante',
-                'paquetes.num_comprobante',
+                'paquetes.codigo_paquete',
+                'paquetes.nombre_paquete',  
+                'paquetes.detalle',               
                 'paquetes.fecha_hora',
                 'paquetes.impuesto',
                 'paquetes.total',
                 'paquetes.estado',
                 'personas.nombres','usuarios.usuario')
             ->where('paquetes.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('paquetes.id', 'desc')->paginate(3);
+            ->where('paquetes.estado', 'like', '%1%')
+            ->orderBy('paquetes.id', 'desc')->paginate(20);
         }
         
         return [
@@ -66,18 +68,76 @@ class PaqueteControlador extends Controller
             'paquetes' => $paquetes
         ];
     }
+    public function listarPaquetesVenta(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        
+        if ($buscar==''){
+            $paquetes = Paquete::join('empleados','paquetes.idempleado','=','empleados.id')
+            ->join('personas','empleados.id','=','personas.id')
+            ->join('usuarios','empleados.id','=','usuarios.id')
+            ->select(
+                'paquetes.id',
+                'paquetes.codigo_paquete',
+                'paquetes.nombre_paquete',   
+                'paquetes.detalle',                     
+                'paquetes.fecha_hora',
+                'paquetes.impuesto',
+                'paquetes.total',
+                'paquetes.estado',
+                'personas.nombres','usuarios.usuario')            
+             ->where('paquetes.estado','=','1')
+            ->orderBy('paquetes.id', 'desc')->paginate(10);
+        }
+        else{
+            $paquetes = Paquete::join('empleados','paquetes.idempleado','=','empleados.id')
+            ->join('personas','empleados.id','=','personas.id')
+            ->join('usuarios','empleados.id','=','usuarios.id')
+            ->select(
+                'paquetes.id',
+                'paquetes.codigo_paquete',
+                'paquetes.nombre_paquete',   
+                'paquetes.detalle',                     
+                'paquetes.fecha_hora',
+                'paquetes.impuesto',
+                'paquetes.total',
+                'paquetes.estado',
+                'personas.nombres','usuarios.usuario')  
+                ->where('paquetes.'.$criterio, 'like', '%'. $buscar . '%')
+                ->where('paquetes.estado','=','1')
+            ->orderBy('paquetes.id', 'desc')->paginate(10);
+        }
+        
+
+        return ['paquetes' => $paquetes];
+    }
+    public function buscarPaqueteVenta(Request $request){
+        if (!$request->ajax()) return redirect('/');
+
+        $filtro = $request->filtro;
+        $servicios = Paquete::where('codigo','=', $filtro)
+        ->select('id','codigo','nombre','precio')
+        ->where('condicion','=','1')
+        ->orderBy('nombre', 'asc')
+        ->take(1)->get();
+
+        return ['servicios' => $servicios];
+    }
     public function obtenerCabecera(Request $request){
       //  if (!$request->ajax()) return redirect('/');
 
         $id = $request->id;
-        $venta = Paquete::join('empleados','paquetes.idempleado','=','empleados.id')
+        $paqueteselecionado = Paquete::join('empleados','paquetes.idempleado','=','empleados.id')
         ->join('personas','empleados.id','=','personas.id')
         ->join('usuarios','empleados.id','=','usuarios.id')
         ->select(
             'paquetes.id',
-            'paquetes.tipo_comprobante',
-            'paquetes.serie_comprobante',
-            'paquetes.num_comprobante',
+            'paquetes.codigo_paquete',
+            'paquetes.nombre_paquete',  
+            'paquetes.detalle',               
             'paquetes.fecha_hora',
             'paquetes.impuesto',
             'paquetes.total',
@@ -87,53 +147,13 @@ class PaqueteControlador extends Controller
         ->where('paquetes.id','=',$id)
         ->orderBy('paquetes.id', 'desc')->take(1)->get();
 
-        $clientes = DetalleCliente::
-        join('clientes','detalle_clientes.idcliente','=','clientes.id')
-        ->join('personas','clientes.id','=','personas.id')
-        ->select(
-            'personas.nombres',
-            'personas.tipo_documento',
-            'personas.dni',
-            'personas.direccion',
-            'personas.telefono',
-            'personas.email',
-            'personas.apellidos'
-        )
-        ->where('detalle_clientes.idpaquete','=',$id)
-        ->where('detalle_clientes.responsable','=','1')
-        ->orderBy('detalle_clientes.id', 'desc')->take(1)->get();
-
-        
-        return ['venta' => $venta,'clientes' => $clientes];
+        return ['paqueteselecionado' => $paqueteselecionado];
     }
-    public function obtenerCabeceraCli(Request $request){
-        //  if (!$request->ajax()) return redirect('/');
-  
-          $id = $request->id;
-       
-          $clientes = DetalleCliente::
-          join('clientes','detalle_clientes.idcliente','=','clientes.id')
-          ->join('personas','clientes.id','=','personas.id')
-          ->select(
-              'personas.nombres',
-              'personas.tipo_documento',
-              'personas.dni',
-              'personas.direccion',
-              'personas.telefono',
-              'personas.email',
-              'personas.apellidos'
-          )
-          ->where('detalle_clientes.idpaquete','=',$id)
-          ->where('detalle_clientes.responsable','=','1')
-          ->orderBy('detalle_clientes.id', 'desc')->take(1)->get();
-  
-          
-          return ['clientes' => $clientes];
-      }
+   
     public function obtenerDetalles(Request $request){
        // if (!$request->ajax()) return redirect('/');
-        $id=1;
-        //$id = $request->id;
+      
+        $id = $request->id;
         $detalles = DetallePaquete::
         join('servicios','detalle_paquete.idservicio','=','servicios.id')
         ->join('categorias','servicios.idcategoria','=','categorias.id')
@@ -179,16 +199,17 @@ class PaqueteControlador extends Controller
 
             $mytime= Carbon::now('America/Lima');
 
-            $paquete = new Paquete();           
-            $paquete->idempleado = \Auth::user()->id;
-            $paquete->tipo_comprobante = $request->tipo_comprobante;
-            $paquete->serie_comprobante = $request->serie_comprobante;
-            $paquete->num_comprobante = $request->num_comprobante;
-            $paquete->fecha_hora = $mytime->toDateString();
-            $paquete->impuesto = $request->impuesto;
-            $paquete->total = $request->total;
-            $paquete->estado = 'Registrado';
-            $paquete->save();
+            $venta = new Paquete();
+            
+            $venta->idempleado = \Auth::user()->id;         
+            $venta->fecha_hora = $mytime->toDateString();
+            $venta->impuesto = $request->impuesto;
+            $venta->codigo_paquete = $request->codigo_paquete;
+            $venta->nombre_paquete = $request->nombre_paquete;
+            $venta->detalle = $request->detalle;
+            $venta->total = $request->total;
+            $venta->estado = '1';
+            $venta->save();
 
             $detalles = $request->data;//Array de detalles
             //Recorro todos los elementos
@@ -196,39 +217,38 @@ class PaqueteControlador extends Controller
             foreach($detalles as $ep=>$det)
             {
                 $detalle = new DetallePaquete();
-                $detalle->idpaquete = $paquete->id;
-                $detalle->idservicio = $det['idservicio'];
+                $detalle->idpaquete = $venta->id;
+                $detalle->idservicio = $det['idarticulo'];
                 $detalle->cantidad = $det['cantidad'];
                 $detalle->precio = $det['precio'];
                 $detalle->descuento = $det['descuento'];         
                 $detalle->save();
-            }     
-            
-          //  $detalles = $request->data;//Array de detalles
-            //Recorro todos los elementos
-
-         /*   foreach($detalles as $ep=>$det)
-            {
-                $detalle = new DetalleCliente();
-                $detalle->idventa = $venta->id;
-                $detalle->idarticulo = $det['idarticulo'];
-                $detalle->cantidad = $det['cantidad'];
-                $detalle->precio = $det['precio'];
-                $detalle->descuento = $det['descuento'];         
-                $detalle->save();
-            }         */
-
+            }       
             DB::commit();
-        } catch (\Exception $e){
+            return [
+                'id' => $venta->id
+            ];
+        } catch (Exception $e){
             DB::rollBack();
         }
+    }
+    public function ultimopaquete(Request $request){
+        
+        $ultimo=Paquete::select(
+        'paquetes.id')
+        ->orderBy('paquetes.id', 'desc')
+        ->take(1)->get();      
+
+        return[
+            'idultimopaquete'=> $ultimo
+        ];
     }
 
     public function desactivar(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
         $venta = Paquete::findOrFail($request->id);
-        $venta->estado = 'Anulado';
+        $venta->estado = '2';
         $venta->save();
     }
 
@@ -317,25 +337,44 @@ class PaqueteControlador extends Controller
 
 
     public function pdfTicket(Request $request,$id){
-        $venta = Paquete::join('personas','ventas.idcliente','=','personas.id')
-        ->join('users','ventas.idusuario','=','users.id')
-        ->select('ventas.id','ventas.tipo_comprobante','ventas.serie_comprobante',
-        'ventas.num_comprobante','ventas.created_at','ventas.impuesto','ventas.total',
-        'ventas.estado','personas.nombre','personas.tipo_documento','personas.num_documento',
-        'personas.direccion','personas.email',
-        'personas.telefono','users.usuario')
-        ->where('ventas.id','=',$id)
-        ->orderBy('ventas.id', 'desc')->take(1)->get();
+        $paqueteselecionado = Paquete::join('empleados','paquetes.idempleado','=','empleados.id')
+        ->join('personas','empleados.id','=','personas.id')
+        ->join('usuarios','empleados.id','=','usuarios.id')
+        ->select(
+            'paquetes.id',
+            'paquetes.codigo_paquete',
+            'paquetes.nombre_paquete',  
+            'paquetes.detalle',               
+            'paquetes.fecha_hora',
+            'paquetes.impuesto',
+            'paquetes.total',
+            'paquetes.estado',
+            'personas.nombres',
+            'personas.apellidos','usuarios.usuario')
+        ->where('paquetes.id','=',$id)
+        ->orderBy('paquetes.id', 'desc')->take(1)->get();
 
-        $detalles = DetallePaquete::join('articulos','detalle_ventas.idarticulo','=','articulos.id')
-        ->select('detalle_ventas.cantidad','detalle_ventas.precio','detalle_ventas.descuento',
-        'articulos.nombre as articulo')
-        ->where('detalle_ventas.idventa','=',$id)
-        ->orderBy('detalle_ventas.id', 'desc')->get();
+      
+        $detalles = DetallePaquete::
+        join('servicios','detalle_paquete.idservicio','=','servicios.id')
+        ->join('categorias','servicios.idcategoria','=','categorias.id')
+        ->select(
+            'detalle_paquete.id',
+            'detalle_paquete.cantidad',
+            'detalle_paquete.precio',
+            'detalle_paquete.descuento',
+            'categorias.nombre as categoriaservicio',
+            'servicios.nombre as servicio'
+        )
+        ->where('detalle_paquete.idpaquete','=',$id)
+        ->orderBy('detalle_paquete.id', 'desc')->get();
 
-        $numventa=Paquete::select('num_comprobante')->where('id',$id)->get();
+        $codpaq=Paquete::select('codigo_paquete')->where('id',$id)->get();
 
-        $pdf = \PDF::loadView('pdf.ventaticket',['venta'=>$venta,'detalles'=>$detalles]);
-        return $pdf->download('ventaTicket-'.$numventa[0]->num_comprobante.'.pdf');
+        $pdf = \PDF::loadView('pdf.cotizacionpaquete',['paqueteselecionado'=>$paqueteselecionado,'detalles'=>$detalles]);
+        return $pdf->download('CotizacionPaquete-'.$codpaq[0]->codigo_paquete.'.pdf');
+
+        
+      
     }
 }

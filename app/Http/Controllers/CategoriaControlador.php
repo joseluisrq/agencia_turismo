@@ -53,11 +53,21 @@ class CategoriaControlador extends Controller
 
     } 
     public function selectCategoria(Request $request){
-       if (!$request->ajax()) return redirect('/');
+      
             $filtro = $request->filtro;
             $categorias = Categoria::where('condicion', '=', '1')       
             ->select('id','nombre')
             ->orderBy('id', 'asc')->get();
+
+            return ['categorias' => $categorias];
+    }
+     public function selectCategoria2(Request $request){
+      
+            $filtro = $request->filtro;
+            $categorias = Categoria::where('condicion', '=', '1')       
+            ->select('id','nombre')
+            ->where('nombre', 'like', '%'. $filtro . '%')
+            ->get();
 
             return ['categorias' => $categorias];
     }

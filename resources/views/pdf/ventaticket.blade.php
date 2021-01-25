@@ -446,9 +446,10 @@
             <tr>
                 <td align="center">
                 <!-- Mostramos los datos de la empresa en el documento HTML -->
-                .::<strong> IncanatoIT </strong>::.<br>
-                RUC 10477157772<br>
-                José Gálvez 1368, Chongoyape - Chiclayo, Perú - 931742904<br>
+                .::<strong> Campiña Tours </strong>::.<br>
+                Jr. Amalia Puga N° 641 2do Piso - Plaza de Armas - Cajamarca<br>
+                Celulares: (+51) 964041249 / (+51) 973960371<br>
+                Email:reservas@campitours.com <br>
                 </td>
             </tr>
             <tr>
@@ -459,10 +460,10 @@
             </tr>
             <tr>
                 <!-- Mostramos los datos del cliente en el documento HTML -->
-                <td>Cliente: {{$v->nombre}}</td>
+                <td>Cliente: {{$v->nombres}} {{$v->apellidos}}</td>
             </tr>
             <tr>
-                <td>{{$v->tipo_documento}}: {{$v->num_documento}}</td>
+                <td>{{$v->tipo_documento}}: {{$v->dni}}</td>
             </tr>
             <tr>
                 <td>Nº de venta: {{$v->serie_comprobante}}-{{$v->num_comprobante}}</td>
@@ -493,17 +494,17 @@
             <tr>
             <td>&nbsp;</td>
             <td align="right"><b>SUBTOTAL:</b></td>
-            <td align="right"><b>$ {{$v->total-($v->total*$v->impuesto)}}</b></td>
+            <td align="right"><b>S/ {{$v->total-($v->total*$v->impuesto)}}</b></td>
             </tr>
             <tr>
             <td>&nbsp;</td>
             <td align="right"><b>IMPUESTO:</b></td>
-            <td align="right"><b>$ {{$v->total*$v->impuesto}}</b></td>
+            <td align="right"><b>S/ {{$v->total*$v->impuesto}}</b></td>
             </tr>
             <tr>
             <td>&nbsp;</td>
             <td align="right"><b>TOTAL:</b></td>
-            <td align="right"><b>$ {{$v->total}}</b></td>
+            <td align="right"><b>S/ {{$v->total}}</b></td>
             </tr>
             @endforeach
             <tr>
@@ -512,11 +513,9 @@
             <tr>
             <td colspan="3" align="center">¡Gracias por su compra!</td>
             </tr>
+           
             <tr>
-            <td colspan="3" align="center">IncanatoIT</td>
-            </tr>
-            <tr>
-            <td colspan="3" align="center">Chiclayo - Perú</td>
+            <td colspan="3" align="center">Cajamarca - Perú</td>
             </tr>            
         </table>
         <br>

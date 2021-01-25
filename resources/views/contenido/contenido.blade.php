@@ -45,9 +45,16 @@
         <template v-if=menu==8>
             <usuario :ruta="ruta" ></usuario>    
         </template>
+        <template v-if=menu==11>
+            <paquete_new :ruta="ruta" ></paquete_new>    
+        </template>
 
         <template v-if=menu==12>
-            <paquete :ruta="ruta" ></paquete>    
+            <venta :ruta="ruta" ></venta>    
+        </template>
+
+        <template v-if=menu==14>
+            <caja :ruta="ruta" ></caja>    
         </template>
 
     @elseif (Auth::user()->idrol == 2)

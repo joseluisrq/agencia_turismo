@@ -34,11 +34,16 @@ Vue.component('usuario', require('./components/Usuarios/Usuario.vue'));
 
 //Paquete
 Vue.component('paquete', require('./components/Paquetes/Paquete.vue'));
+Vue.component('paquete_new', require('./components/Paquetes/NewPaquete.vue'));
+
+Vue.component('venta', require('./components/Ventas/Venta.vue'));
+
+Vue.component('caja', require('./components/Caja/Caja.vue'));
 
 const app = new Vue({
     el: '#app',
     data:{
-        menu:12,
-        ruta: 'http://127.0.0.1:8000/',
+        menu:14,
+        ruta: 'http://localhost/pruebas/public',
     }
 });

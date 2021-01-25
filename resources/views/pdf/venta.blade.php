@@ -142,7 +142,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($clientes as $c)
+                        @foreach ($venta as $c)
                         <tr>
                             <th><p id="cliente">Sr(a).
                             {{$c->nombres}}{{$c->apellidos}}<br>
@@ -158,26 +158,7 @@
         </section>
       
         <br>
-        <section>
-            <div>
-                <table id="facvendedor">
-                    <thead>
-                        <tr id="fv">
-                            <th>VENDEDOR</th>
-                            <th>FECHA</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{$v->nombreuser}}
-                                {{$v->apellidosuser}}</td>
-                            <td>{{$v->created_at}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-        <br>
+        
         <section>
             <div>
                 <table id="facarticulo">
@@ -194,7 +175,7 @@
                         @foreach ($detalles as $det)
                         <tr>
                             <td>{{$det->cantidad}}</td>
-                            <td>{{$det->servicio}}</td>
+                            <td>{{$det->articulo}} </td>
                             <td>{{$det->precio}}</td>
                             <td>{{$det->descuento}}</td>
                             <td>{{$det->cantidad*$det->precio-$det->descuento}}</td>

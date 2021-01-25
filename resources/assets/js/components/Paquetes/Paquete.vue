@@ -8,7 +8,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Ventas
+                        <i class="fa fa-align-justify"></i> Ventas to
                         <button type="button" @click="mostrarDetalle()" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
@@ -22,7 +22,7 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="input-group">
-                                    <select class="form-control col-md-3" v-model="criterio">
+                                    <select class="form-control col-md-12" v-model="criterio">
                                       <option value="tipo_comprobante">Tipo Comprobante</option>
                                       <option value="num_comprobante">Número Comprobante</option>
                                       <option value="fecha_hora">Fecha-Hora</option>
@@ -104,8 +104,9 @@
                     <div class="card-body">
                         <div class="form-group row border">
                             <div class="col-md-9">
-                                <div class="form-group">
+                                <div class="form-group col-md-9">
                                     <label for="">Cliente(*)</label>
+                                    
                                     <v-select
                                         :on-search="selectCliente"
                                         label="nombre"
@@ -157,9 +158,9 @@
                         <div class="form-group row border">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Artículo <span style="color:red;" v-show="idarticulo==0">(*Seleccione)</span></label>
+                                    <label>Servicio <span style="color:red;" v-show="idarticulo==0">(*Seleccione)</span></label>
                                     <div class="form-inline">
-                                        <input type="text" class="form-control" v-model="codigo" @keyup.enter="buscarArticulo()" placeholder="Ingrese artículo">
+                                        <input type="text" class="form-control" v-model="codigo" @keyup.enter="buscarArticulo()" placeholder="Ingrese servicio">
                                         <button @click="abrirModal()" class="btn btn-primary">...</button>
                                         <input type="text" readonly class="form-control" v-model="articulo">
                                     </div>                                    
@@ -195,7 +196,7 @@
                                     <thead>
                                         <tr>
                                             <th>Opciones</th>
-                                            <th>Artículo</th>
+                                            <th>Servicio</th>
                                             <th>Precio</th>
                                             <th>Cantidad</th>
                                             <th>Descuento</th>
@@ -205,8 +206,8 @@
                                     <tbody v-if="arrayDetalle.length">
                                         <tr v-for="(detalle,index) in arrayDetalle" :key="detalle.id">
                                             <td>
-                                                <button @click="eliminarDetalle(index)" type="button" class="btn btn-danger btn-sm">
-                                                    <i class="icon-close"></i>
+                                                <button @click="eliminarDetalle(index)" type="button" class="btn btn-outline-danger ">
+                                                 <i class="fas fa-times"></i>
                                                 </button>
                                             </td>
                                             <td v-text="detalle.articulo">
@@ -226,14 +227,9 @@
                                                 {{detalle.precio*detalle.cantidad-detalle.descuento}}
                                             </td>
                                         </tr>
-                                        <tr style="background-color: #CEECF5;">
-                                            <td colspan="5" align="right"><strong>Total Parcial:</strong></td>
-                                            <td>S/ {{totalParcial=(total-totalImpuesto).toFixed(2)}}</td>
-                                        </tr>
-                                        <tr style="background-color: #CEECF5;">
-                                            <td colspan="5" align="right"><strong>Total Impuesto:</strong></td>
-                                            <td>S/ {{totalImpuesto=((total*impuesto)/(1+impuesto)).toFixed(2)}}</td>
-                                        </tr>
+                                      
+                                      
+                                      
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="5" align="right"><strong>Total Neto:</strong></td>
                                             <td>S/ {{total=calcularTotal}}</td>
@@ -242,7 +238,7 @@
                                     <tbody v-else>
                                         <tr>
                                             <td colspan="6">
-                                                NO hay artículos agregados
+                                                No hay servicios agregados
                                             </td>
                                         </tr>
                                     </tbody>                                    
@@ -323,14 +319,7 @@
                                                 {{detalle.precio*detalle.cantidad-detalle.descuento}}
                                             </td>
                                         </tr>
-                                        <tr style="background-color: #CEECF5;">
-                                            <td colspan="4" align="right"><strong>Total Parcial:</strong></td>
-                                            <td>$ {{totalParcial=(total-totalImpuesto).toFixed(2)}}</td>
-                                        </tr>
-                                        <tr style="background-color: #CEECF5;">
-                                            <td colspan="4" align="right"><strong>Total Impuesto:</strong></td>
-                                            <td>$ {{totalImpuesto=((total*impuesto)).toFixed(2)}}</td>
-                                        </tr>
+                                      
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="4" align="right"><strong>Total Neto:</strong></td>
                                             <td>$ {{total}}</td>
@@ -370,9 +359,9 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="input-group">
-                                        <select class="form-control col-md-3" v-model="criterioA">
+                                        <select class="form-control col-md-12" v-model="criterioA">
                                         <option value="nombre">Nombre</option>
                                         <option value="descripcion">Descripción</option>
                                         <option value="codigo">Código</option>
@@ -390,25 +379,24 @@
                                             <th>Código</th>
                                             <th>Nombre</th>
                                             <th>Categoría</th>
-                                            <th>Precio Venta</th>
-                                            <th>Stock</th>
+                                            <th>Precio</th>                                   
                                             <th>Estado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="articulo in arrayArticulo" :key="articulo.id">
+                                        <tr v-for="servicio in arrayServicio" :key="servicio.id">
                                             <td>
-                                                <button type="button" @click="agregarDetalleModal(articulo)" class="btn btn-success btn-sm">
-                                                <i class="icon-check"></i>
+                                                <button type="button" @click="agregarDetalleModal(servicio)" class="btn btn-success btn-sm">
+                                               <i class="far fa-check-circle"></i>
                                                 </button>
                                             </td>
-                                            <td v-text="articulo.codigo"></td>
-                                            <td v-text="articulo.nombre"></td>
-                                            <td v-text="articulo.nombre_categoria"></td>
-                                            <td v-text="articulo.precio_venta"></td>
-                                            <td v-text="articulo.stock"></td>
+                                            <td v-text="servicio.codigo"></td>
+                                            <td v-text="servicio.nombre"></td>
+                                            <td v-text="servicio.categoria"></td>
+                                            <td v-text="servicio.precio"></td>
+                                          
                                             <td>
-                                                <div v-if="articulo.condicion">
+                                                <div v-if="servicio.condicion==1">
                                                     <span class="badge badge-success">Activo</span>
                                                 </div>
                                                 <div v-else>
@@ -474,7 +462,7 @@
                 buscar : '',
                 criterioA:'nombre',
                 buscarA: '',
-                arrayArticulo: [],
+                arrayServicio: [],
                 idarticulo: 0,
                 codigo: '',
                 articulo: '',
@@ -534,6 +522,10 @@
                 .catch(function (error) {
                     console.log(error);
                 });
+
+          
+
+
             },
             cargarPdf(){
                 window.open(this.ruta + '/paquete/listarPdf','_blank');
@@ -542,7 +534,7 @@
                 let me=this;
                 loading(true)
 
-                var url= this.ruta + '/cliente/selectCliente?filtro='+search;
+                 var url= this.ruta + '/cliente/selectCliente?filtro='+search;
                 axios.get(url).then(function (response) {
                     let respuesta = response.data;
                     q: search
@@ -560,17 +552,17 @@
             },
             buscarArticulo(){
                 let me=this;
-                var url= this.ruta + '/articulo/buscarArticuloVenta?filtro=' + me.codigo;
+                var url= this.ruta + '/servicio/buscarServicioVenta?filtro=' + me.codigo;
 
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
-                    me.arrayArticulo = respuesta.articulos;
+                    me.arrayServicio = respuesta.servicios;
 
-                    if (me.arrayArticulo.length>0){
-                        me.articulo=me.arrayArticulo[0]['nombre'];
-                        me.idarticulo=me.arrayArticulo[0]['id'];
-                        me.precio=me.arrayArticulo[0]['precio_venta'];
-                        me.stock=me.arrayArticulo[0]['stock'];
+                    if (me.arrayServicio.length>0){
+                        me.articulo=me.arrayServicio[0]['nombre'];
+                        me.idarticulo=me.arrayServicio[0]['id'];
+                        me.precio=me.arrayServicio[0]['precio'];
+                        me.stock=me.arrayServicio[0]['codigo'];
                     }
                     else{
                         me.articulo='No existe artículo';
@@ -654,10 +646,11 @@
             agregarDetalleModal(data =[]){
                 let me=this;
                 if(me.encuentra(data['id'])){
-                        swal({
-                            type: 'error',
-                            title: 'Error...',
-                            text: 'Ese artículo ya se encuentra agregado!',
+                      Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'El servicio ya se encuentra agregado'
+                       
                             })
                     }
                     else{
@@ -665,7 +658,7 @@
                             idarticulo: data['id'],
                             articulo: data['nombre'],
                             cantidad: 1,
-                            precio: data['precio_venta'],
+                            precio: data['precio'],
                             descuento:0,
                             stock:data['stock']
                         }); 
@@ -673,10 +666,10 @@
             },
             listarArticulo (buscar,criterio){
                 let me=this;
-                var url= this.ruta + '/articulo/listarArticuloVenta?buscar='+ buscar + '&criterio='+ criterio;
+                var url= this.ruta + '/servicio/listarServiciosVenta?buscar='+ buscar + '&criterio='+ criterio;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
-                    me.arrayArticulo = respuesta.articulos.data;
+                    me.arrayServicio = respuesta.servicios.data;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -820,9 +813,9 @@
                 this.tituloModal='';
             }, 
             abrirModal(){               
-                this.arrayArticulo=[];
+                this.arrayServicio=[];
                 this.modal = 1;
-                this.tituloModal = 'Seleccione uno o varios artículos';
+                this.tituloModal = 'Seleccione uno o varios servicios';
             },
             desactivarVenta(id){
                swal({
