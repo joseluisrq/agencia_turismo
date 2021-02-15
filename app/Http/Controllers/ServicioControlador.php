@@ -12,8 +12,8 @@ class ServicioControlador extends Controller
 {
     public function index(Request $request)
     {
-        $buscar = $request->buscar;
-        $criterio = $request->criterio;
+      //  $buscar = $request->buscar;
+       // $criterio = $request->criterio;
          
         if ($buscar==''){
             $servicios = Servicio::join('categorias','servicios.idcategoria','=','categorias.id')->

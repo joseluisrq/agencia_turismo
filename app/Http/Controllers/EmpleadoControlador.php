@@ -74,6 +74,21 @@ class EmpleadoControlador extends Controller
             'empleados' => $empleados
         ];
     }
+    public function selectEmpleado(Request $request){
+      
+           
+             $empleados =  Empleado::
+             join('personas','empleados.id','=','personas.id')
+             ->join('cargos','empleados.idcargo','=','cargos.id')
+             ->select(
+                 'personas.id',
+                 'personas.nombres',
+                 'personas.apellidos') 
+                ->where('empleados.condicion' ,'=', '1')
+                ->orderBy('empleados.id', 'asc')->get();
+ 
+             return ['empleados' => $empleados];
+     }
     public function registrar(Request $request)
     {
         //almacenar

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Caja;
+use App\DetalleCaja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -58,6 +59,32 @@ class CajaControlador extends Controller
             ],
             'cajas' => $caja,
             'abierta' => $abierta,
+        ];
+    }
+    public function detallecaja(Request $request)
+    {
+       // if (!$request->ajax()) return redirect('/');
+            $id = $request->id;
+            $detalle_caja = DetalleCaja::join('ventas','detalle_caja.idventa_salida','=','ventas.id')  
+            ->join('personas','ventas.idempleado','=','personas.id')         
+            ->select(
+                'detalle_caja.id',
+                'detalle_caja.idcaja',
+                'detalle_caja.fecha_hora',
+                'detalle_caja.monto',
+                'detalle_caja.tipo',
+                'detalle_caja.idventa_salida',
+                'ventas.idempleado',
+                'personas.nombres as empleado_as',
+                'personas.apellidos as apellidos_as',                
+                'detalle_caja.detalle')
+            ->where('detalle_caja.idcaja','=',$id)
+            ->orderBy('detalle_caja.id', 'desc')->get();
+       
+
+      
+        return [
+            'detalle_caja' => $detalle_caja           
         ];
     }
     public function cerrar(Request $request)

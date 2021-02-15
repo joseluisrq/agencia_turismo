@@ -13,7 +13,7 @@ class Cargo extends Model
     protected $primaryKey='id';
 
     protected $fillable=[
-        'nommbre',
+        'nombre',
         'descripcion',
         'condicion'];
 

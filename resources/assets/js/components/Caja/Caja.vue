@@ -17,6 +17,7 @@
         </div>
     <!-- fin container inicio-->
     <!--contenido-->
+    <template v-if="!vistadetallecaja">
           <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
@@ -109,6 +110,53 @@
                 </div>
             </div>
         </div>
+    </template>
+
+    <template v-else>
+         <!--tabla de lista de categorias-->
+                            <div class="table-responsive col-md-12 mt-4">
+                                  <h5 class="text-center">Detalle de Caja</h5>
+                                  <button class="btn  btn-primary  pull-right"   @click="vistadetallecaja=false">Ver Cajas</button><hr>
+                                <table class="table table-responsive table-bordered ">
+                                    <thead class="">
+                                        <tr>
+                                           
+                                        <th scope="col">ID </th>
+                                        <th scope="col">Fecha y Hora</th>                                       
+                                        <th scope="col">Monto</th>   
+                                        <th scope="col">Detalle</th>
+                                 
+                                        <th scope="col">Tipo</th>
+                                          <th scope="col">Registrador</th>
+                                     
+                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="element in aarayDetalleCaja" :key="element.id">
+                                             
+                                            <td  v-text="element.id"></td>
+                                            <td v-text="element.fecha_hora"></td>
+                                            <td v-text="element.monto"></td>                                           
+                                            <td  v-text="element.detalle"></td>
+
+                                            <!--activa o desactivada-->
+                                             <td v-if="element.tipo==1">
+                                                <span class="text-info" >Entrada</span>  
+                                             </td>
+                                             <td v-else-if="element.tipo==0">
+                                                <span class="text-danger" >Salida</span> 
+                                             </td>    
+                                            <td>{{element.empleado_as}} {{element.apellidos_as}}</td>                           
+                                              <!--fin opciones de detalle -->
+                                        </tr>                                               
+                                    </tbody>
+                                </table>
+                                <!--paginacion-->
+                           
+                            </div>
+                            <!--fin tabla lista de categorias-->
+    </template>
     <!--fin contenido-->
 
 
@@ -172,9 +220,11 @@
                 nombre:'',
                 descripcion:'',
                 arrayCaja:[],
+                aarayDetalleCaja:[],
 
                 nombrerol:'',
-                 monto_inicial:0,     
+                 monto_inicial:0,  
+                 vistadetallecaja:false,   
 
                 //modal
                 modal : 0,
@@ -325,6 +375,24 @@
                 this.modal=0;
                  this.monto_inicial=0;
             },
+            BtnDetalle(id){
+                 let me=this;
+                this.vistadetallecaja=true;
+                 me.aarayDetalleCaja=[];
+                var url= me.ruta+'/detallecaja/obtenerDetalles?id='+id;
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.aarayDetalleCaja = respuesta.detalle_caja;
+                    //me.cajaabierta_p = respuesta.abierta[0].id;
+                  
+
+                   
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            },
              abrirModal(modelo, accion, data = []){
                
                 switch(modelo){
@@ -345,6 +413,7 @@
                 }
             },
         },
+      
         mounted() {
              this.lsitarCajas(1,this.buscar,this.criterio);
         }

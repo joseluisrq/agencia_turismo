@@ -65,7 +65,7 @@ Route::group(['middleware' => ['cors']], function () {
                 Route::get('/rol','RolControlador@index');
                 Route::get('/rol/selectRol','RolControlador@selectRol');
                 Route::post('/rol/registrar','RolControlador@registrar');
-                Route::put('/rol/actualizar','RolControlador@actualizar');
+                Route::put('/rol/actualizar','RolControlador@actualizar')->name('put');
                 Route::put('/rol/desactivar','RolControlador@desactivar');
                 Route::put('/rol/activar','RolControlador@activar');
                 
@@ -73,6 +73,7 @@ Route::group(['middleware' => ['cors']], function () {
 
                 Route::post('/caja/registrar','CajaControlador@registrar');
                 Route::get('/caja','CajaControlador@index');
+                Route::get('/detallecaja/obtenerDetalles','CajaControlador@detallecaja');
                 Route::put('/caja/cerrar','CajaControlador@cerrar');
                 //Usuario
                 Route::get('/usuario','UsuarioControlador@index');
@@ -101,6 +102,7 @@ Route::group(['middleware' => ['cors']], function () {
                 
                 //empleado
                 Route::get('/empleado','EmpleadoControlador@index');
+                Route::get('/empleado/selectEmpleado','EmpleadoControlador@selectEmpleado');
                 Route::post('/empleado/registrar','EmpleadoControlador@registrar');
                 Route::put('/empleado/actualizar','EmpleadoControlador@actualizar');
                 Route::put('/empleado/desactivar','EmpleadoControlador@desactivar');

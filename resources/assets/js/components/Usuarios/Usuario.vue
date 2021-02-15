@@ -11,6 +11,9 @@
                                 <small>Campíña  Panel administrador</small>
                             </h3>
                         </div>
+                           <button class="btn btn-warning text-white"  @click="abrirModal('usuarios','registrar')"> 
+                                                      Nuevo Usuario
+                                                 </button> 
                     </div>                  
                 </div>
             </div>
@@ -107,15 +110,32 @@
                                 <div class="row">
                                     <div class="col-md-12 form-group">
                                         <label class=" form-control-label" for="text-input">Nombre (*)</label>
-                                        <input type="text" v-model="nombre_usuario" class="form-control" placeholder="Ingrese nombre de cargo">                                              
+                                        <input type="text" v-model="nombre_usuario" class="form-control" placeholder="Ingrese usuario">                                              
+                                    </div>
+                                     <div class="col-md-12 form-group">
+                                        <label class=" form-control-label" for="text-input">Constraseña (*)</label>
+                                        <input type="password" v-model="pass_uno" class="form-control" placeholder="Ingrese contraseña">                                              
+                                    </div>
+                                     <div class="col-md-12 form-group">
+                                        <label class=" form-control-label" for="text-input">Repita Contraseña(*)</label>
+                                        <input type="password" v-model="pass_dos" class="form-control" placeholder="Repita contraseña">                                              
                                     </div>
                                   
-                                     <div class="col-md-6 form-group">
+                                     <div class="col-md-12 form-group">
                                         <label class=" form-control-label" for="text-input">Rol (*)</label>
                                         <select class=" form-control" v-model="rol_user">
                                             <option value="0" disabled>Selecione rol</option>
                                                 <option v-for="rol in arrayRoles" :key="rol.id" :value="rol.id" v-text="rol.nombre"></option>
                                         </select>
+                                        
+                                    </div>      
+                                     <div class="col-md-12 form-group">
+                                        <label class=" form-control-label" for="text-input">Empleado (*)</label>
+                                        <select class=" form-control" v-model="empleado_user">
+                                            <option value="0" disabled>Selecione empleado</option>
+                                                <option v-for="empleado in arrayEmpleados" :key="empleado.id" :value="empleado.id" v-text="empleado.nombres"></option>
+                                        </select>
+                                        
                                     </div>      
                                 </div>
                                 <div v-show="errorCargo" class="form-group row div-error">
@@ -156,6 +176,11 @@
                 rol_user:0,
                 arrayUsuarios:[],
                  arrayRoles:[],
+                 arrayEmpleados:[],
+                 empleado_user:'',
+                 pass_uno:'',
+                 pass_dos:'',
+                 
 
                 nombre_usuario:'',
 
@@ -219,7 +244,7 @@
                 
                 let me = this;
 
-                 axios.put('/cargo/actualizar',{                  
+                 axios.put(me.ruta+'/cargo/actualizar',{                  
                     'nombre': this.nombre_usuario,
                     'rol_user': this.rol_user,              
                     'id': this.id_usuario
@@ -311,6 +336,18 @@
                     console.log(error);
                 });
             },
+              selectEmpleado(){
+                let me=this;
+                me.vistaUsuario=true;
+                var url= me.ruta+'/empleado/selectEmpleado';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.arrayEmpleados = respuesta.empleados;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
              abrirModal(modelo, accion, data = []){
                
                 switch(modelo){
@@ -320,7 +357,9 @@
                             case 'registrar':
                             {
                                 this.modal = 1;
-                                this.tituloModal = 'Registrar Cargo';
+                                this.tituloModal = 'Registrar Usuario';
+                                this.selectRol();
+this.selectEmpleado();
                                 this.nombre_usuario='';
                                 this.rol_user='';                              
                                 this.tipoAccion = 1;
@@ -330,8 +369,9 @@
                             {
                                 //console.log(data);
                                 this.selectRol();
+                             //     this.selectEmpleado();
                                 this.modal=1;
-                                this.tituloModal='Actualizar Cargo';
+                                this.tituloModal='Actualizar Usuario';
                                 this.tipoAccion=2;
                                 this.id_usuario=data['iduser'];
                                 this.nombre_usuario = data['usuario'];

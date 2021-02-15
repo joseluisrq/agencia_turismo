@@ -23,8 +23,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h5>Lista Roles    
-                                <button class="btn  btn-primary  pull-right"  @click="abrirModal('roles','registrar')">Registrar Rol</button>
-                            </h5>                                                        
+                            <!--    <button class="btn  btn-primary  pull-right"  @click="abrirModal('roles','registrar')">Registrar Rol</button>
+                         -->
+                            </h5>                                                    
                         </div>
                         
                         <div class="card-body">                           
@@ -216,7 +217,7 @@
                 
                 let me = this;
 
-                 axios.put('/rol/actualizar',{                  
+                 axios.put(me.ruta+'/rol/actualizar',{                  
                     'nombre': this.nombrerol,
                     'descripcion': this.descripcion,              
                     'id': this.id_rol

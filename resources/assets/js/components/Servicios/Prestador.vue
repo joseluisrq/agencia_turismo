@@ -399,7 +399,7 @@
                 
                 let me = this;
 
-                 axios.put('/prestador/actualizar',{                  
+                 axios.put(me.ruta+'/prestador/actualizar',{                  
                     'nombres': this.nombres,
                     'apellidos': this.apellidos,
                     'tipo_documento': this.tipo_documento,
